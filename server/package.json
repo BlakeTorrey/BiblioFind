@@ -7,16 +7,18 @@
   "scripts": {
     "build": "tsc",
     "start": "node dist/server.js",
-    "watch": "nodemon dist/server.js",
+    "watch": "concurrently \"tsc -w\" \"nodemon --config nodemon.json dist/server.js\"",
+    "dev": "tsc && node dist/server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@apollo/server": "^4.11.3",
     "bcrypt": "^4.0.1",
-    "brcypt": "^1.0.1",
-    "express": "^4.19.2",
+    "express": "^4.21.2",
+    "graphql": "^16.10.0",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^8.0.0"
   },
@@ -27,6 +29,7 @@
     "@types/node": "^20.14.8",
     "dotenv": "^16.4.5",
     "nodemon": "^3.1.0",
-    "typescript": "^5.4.5"
+    "typescript": "^5.4.5",
+    "concurrently": "^8.2.0"
   }
 }
