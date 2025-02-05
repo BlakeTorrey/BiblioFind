@@ -38,10 +38,17 @@ const startApolloServer = async () => {
       })
     );
 
-    app.use(express.static(path.join(__dirname, '../client/dist')));
-    app.get('*', (_req, res) => {
-      res.sendFile(path.join(__dirname, '../client/dist/index.html'));
-    });
+    if (process.env.NODE_ENV === 'production') {
+      // Serve client/build as static assets
+      const clientPath = path.join(__dirname, '../../client/dist');
+      console.log('Static path:', clientPath); // For debugging
+      
+      app.use(express.static(clientPath));
+      
+      app.get('*', (_req, res) => {
+        res.sendFile(path.join(clientPath, 'index.html'));
+      });
+    }
 
     app.listen(PORT, () => {
       console.log(`API server running on port ${PORT}!`);
