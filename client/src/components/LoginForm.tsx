@@ -35,8 +35,14 @@ const LoginForm = ({ handleModalClose }: { handleModalClose: () => void }) => {
         },
       });
 
-      const { token } = data.loginUser;
-      Auth.login(token);
+      console.log('Login response:', data);
+
+      if (!data?.login?.token) {
+        console.error('Invalid response structure:', data);
+        throw new Error('Login response missing token');
+      }
+
+      Auth.login(data.login.token);
       handleModalClose();
     } catch (err) {
       console.error('Error logging in:', err);
